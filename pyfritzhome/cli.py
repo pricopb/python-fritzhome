@@ -96,6 +96,9 @@ def switch_toggle(fritz, args):
     """Command that toggles the device switch state."""
     fritz.set_switch_state_toggle(args.ain)
 
+def switch_get_temp(fritz, args):
+    """Command that reads the device temperature"""
+    print(fritz.get_temperature(args.ain))
 
 def main(args=None):
     """The main function."""
@@ -172,6 +175,12 @@ def main(args=None):
     subparser.add_argument('ain', type=str, metavar="AIN",
                            help='Actor Identification')
     subparser.set_defaults(func=switch_toggle)
+
+    # switch temp
+    subparser = _sub_switch.add_parser('temp', help='get switch temperature')
+    subparser.add_argument('ain', type=str, metavar="AIN",
+                           help='Actor Identification')
+    subparser.set_defaults(func=switch_get_temp)
 
     args = parser.parse_args(args)
 
