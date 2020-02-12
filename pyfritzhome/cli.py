@@ -76,6 +76,10 @@ def device_statistics(fritz, args):
     stats = fritz.get_device_statistics(args.ain)
     print(stats)
 
+def device_temp(fritz, args):
+    """Command that prints the device temperature"""
+    temp = fritz.get_temperature(args.ain)
+    print(temp)
 
 def switch_get(fritz, args):
     """Command that get the device switch state."""
@@ -147,6 +151,13 @@ def main(args=None):
     subparser.add_argument('ain', type=str, metavar="AIN",
                            help='Actor Identification')
     subparser.set_defaults(func=device_statistics)
+
+    # device temperature
+    subparser = _sub_switch.add_parser('temp',
+                                       help='get the device temperature')
+    subparser.add_argument('ain', type=str, metavar="AIN",
+                           help='Actor Identification')
+    subparser.set_defaults(func=device_temp)
 
     # switch
     subparser = _sub.add_parser('switch', help='Switch commands')
